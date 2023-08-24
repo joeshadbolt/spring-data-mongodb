@@ -19,11 +19,12 @@ public class EngagementRepositoryTest {
 
     @Test
     void should_return_engagement_with_activities() {
-        Engagement engagement = Engagement.builder().build();
+        Engagement engagement = new Engagement();
 
         engagementRepository.save(engagement);
 
-        Activity activity = Activity.builder().engagementId(engagement.getId()).build();
+        Activity activity = new Activity();
+        activity.setEngagementId(engagement.getId());
         activityRepository.save(activity);
 
         Optional<Engagement> byId = engagementRepository.findById(engagement.getId());

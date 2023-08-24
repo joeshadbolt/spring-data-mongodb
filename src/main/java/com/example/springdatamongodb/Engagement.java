@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import java.util.List;
 
 @Data
-@Builder
 @Document(collection = "engagements")
 public class Engagement {
 
