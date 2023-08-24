@@ -8,6 +8,7 @@ import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -19,5 +20,5 @@ public class Engagement {
 
     @ReadOnlyProperty
     @DocumentReference(lookup="{'engagementId':?#{#self._id}}")
-    private List<Activity> activities;
+    private List<Activity> activities = new ArrayList<>();
 }
