@@ -19,6 +19,6 @@ public class Engagement {
     private ObjectId id;
 
     @ReadOnlyProperty
-    @DocumentReference(lookup="{'engagementId':?#{#self._id}}")
+    @DocumentReference(lookup="{'engagement':?#{#self._id}}")
     private List<Activity> activities = new ArrayList<>();
 }
