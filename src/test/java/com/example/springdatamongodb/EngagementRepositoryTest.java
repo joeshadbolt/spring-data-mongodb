@@ -23,8 +23,7 @@ public class EngagementRepositoryTest {
 
         Engagement savedEngagement = engagementRepository.save(engagement);
 
-        Activity activity = new Activity();
-        activity.setEngagement(savedEngagement);
+        Activity activity = new Activity(savedEngagement);
         activityRepository.save(activity);
 
         Optional<Engagement> byId = engagementRepository.findById(engagement.getId());
