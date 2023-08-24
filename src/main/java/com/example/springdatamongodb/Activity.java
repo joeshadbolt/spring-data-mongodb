@@ -12,6 +12,6 @@ public class Activity {
     @Id
     private ObjectId id;
 
-    private ObjectId engagementId;
+    private Engagement engagement;
 
 }
