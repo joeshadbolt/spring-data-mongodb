@@ -1,5 +1,6 @@
 package com.example.springdatamongodb;
 
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
@@ -19,15 +20,33 @@ public class EngagementRepositoryTest {
 
     @Test
     void should_return_engagement_with_activities() {
-        Engagement engagement = Engagement.builder().build();
-
-        engagementRepository.save(engagement);
-
-        Activity activity = Activity.builder().engagementId(engagement.getId()).build();
+        Engagement engagement = new Engagement("Foo");
+        Engagement saved = engagementRepository.save(engagement);
+        Activity activity = new Activity(saved);
         activityRepository.save(activity);
 
         Optional<Engagement> byId = engagementRepository.findById(engagement.getId());
 
         assertThat(byId.get().getActivities()).isNotEmpty();
+    }
+
+    @Test
+    void tryCascadeTheParentWithManualId() {
+        Engagement engagement = new Engagement("Foo");
+        Activity activity = new Activity(engagement);
+        activityRepository.save(activity);
+
+        Optional<Engagement> byId = engagementRepository.findById(engagement.getId());
+
+        assertThat(byId.get().getActivities()).isEmpty();
+    }
+
+    @Test
+    void tryCascadeTheParentWithoutId() {
+        Engagement engagement = new Engagement("Foo");
+        Activity activity = new Activity(engagement);
+        activityRepository.save(activity);
+
+        Optional<Engagement> byId = engagementRepository.findById(engagement.getId());
     }
 }
