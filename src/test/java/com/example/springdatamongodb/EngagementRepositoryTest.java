@@ -31,14 +31,22 @@ public class EngagementRepositoryTest {
     }
 
     @Test
-    void tryCascadeTheParent() {
+    void tryCascadeTheParentWithManualId() {
         Engagement engagement = new Engagement("Foo");
-        engagement.setId(new ObjectId());
         Activity activity = new Activity(engagement);
         activityRepository.save(activity);
 
         Optional<Engagement> byId = engagementRepository.findById(engagement.getId());
 
         assertThat(byId.get().getActivities()).isEmpty();
+    }
+
+    @Test
+    void tryCascadeTheParentWithoutId() {
+        Engagement engagement = new Engagement("Foo");
+        Activity activity = new Activity(engagement);
+        activityRepository.save(activity);
+
+        Optional<Engagement> byId = engagementRepository.findById(engagement.getId());
     }
 }
